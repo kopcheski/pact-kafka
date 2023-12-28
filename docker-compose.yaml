@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres
+    healthcheck:
+      test: psql postgres --command "select 1" -U postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+
+  pact-broker:
+    image: dius/pact-broker
+    depends_on:
+      - postgres
+    environment:
+      PACT_BROKER_DATABASE_USERNAME: postgres
+      PACT_BROKER_DATABASE_PASSWORD: password
+      PACT_BROKER_DATABASE_HOST: postgres
+      PACT_BROKER_DATABASE_NAME: postgres
+      PACT_BROKER_LOG_LEVEL: INFO
+      PACT_BROKER_DATABASE_CONNECT_MAX_RETRIES: "10"
+    ports:
+      - "9292:80"
+
+  can-i-deploy:
+    image: pactfoundation/pact-cli
+    depends_on:
+      - pact-broker
+    environment:
+      PACT_BROKER_BASE_URL: https://pact-broker
+      SSL_CERT_FILE: /tmp/self-signed-cert.pem
+    volumes:
+      - ${PWD}/ssl/self-signed-cert.pem:/tmp/self-signed-cert.pem
+    command: broker can-i-deploy --pacticipant "Example App" --latest
