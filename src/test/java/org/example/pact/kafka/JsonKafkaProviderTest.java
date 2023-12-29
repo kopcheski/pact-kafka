@@ -40,8 +40,10 @@ class JsonKafkaProviderTest {
 				KEY_CONTENT_TYPE, JSON_CONTENT_TYPE
 		);
 		ProviderDomainRecord providerDomainRecord = new ProviderDomainRecord("name");
-		KafkaJsonSerializer<ProviderDomainRecord> serializer = createProductionKafkaSerializer();
-		byte[] bytes = serializer.serialize("", providerDomainRecord);
+		byte[] bytes;
+		try (KafkaJsonSerializer<ProviderDomainRecord> serializer = createProductionKafkaSerializer()) {
+			bytes = serializer.serialize("", providerDomainRecord);
+		}
 		return createPactRepresentationFor(metadata, bytes);
 	}
 

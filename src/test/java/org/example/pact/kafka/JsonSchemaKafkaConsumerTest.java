@@ -32,11 +32,11 @@ class JsonSchemaKafkaConsumerTest {
 
 	private static final String TOPIC_NAME = "myKafkaTopic";
 	private static final boolean FAIL_UNKNOWN_PROPERTIES = true;
-	private static final boolean USE_ONEOF_FOR_NULLABLES = true;
+	private static final boolean USE_ONE_OF_FOR_NULLABLES = true;
 	private static final boolean IS_KEY = false;
 	private static final String IGNORED_TOPIC = "";
 
-	private MockSchemaRegistryClient schemaRegistryClient = new MockSchemaRegistryClient();
+	private final MockSchemaRegistryClient schemaRegistryClient = new MockSchemaRegistryClient();
 
 	@Pact(consumer = "jsonSchemaKafkaConsumerApp")
 	MessagePact schemaJsonPact(MessagePactBuilder builder) {
@@ -92,15 +92,15 @@ class JsonSchemaKafkaConsumerTest {
 		}
 	}
 
-	private int registerSchemaForValue() throws IOException, RestClientException {
-		return schemaRegistryClient.register(TOPIC_NAME + "-value", getConsumerDomainRecordSchema());
+	private void registerSchemaForValue() throws IOException, RestClientException {
+		schemaRegistryClient.register(TOPIC_NAME + "-value", getConsumerDomainRecordSchema());
 	}
 
 	private JsonSchema getConsumerDomainRecordSchema() throws IOException {
 		return JsonSchemaUtils.getSchema(
 				new ConsumerDomainRecord("name"),
 				SpecificationVersion.DRAFT_7,
-				USE_ONEOF_FOR_NULLABLES,
+				USE_ONE_OF_FOR_NULLABLES,
 				FAIL_UNKNOWN_PROPERTIES,
 				new ObjectMapper(),
 				schemaRegistryClient
