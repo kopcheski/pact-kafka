@@ -11,6 +11,8 @@ import au.com.dius.pact.core.model.messaging.Message;
 import au.com.dius.pact.core.model.messaging.MessagePact;
 import io.confluent.kafka.serializers.KafkaJsonDeserializerConfig;
 import org.apache.kafka.common.serialization.Deserializer;
+import org.example.pact.kafka.ConsumerDomainRecord;
+import org.example.pact.kafka.ProductionCode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import io.confluent.kafka.serializers.KafkaJsonDeserializer;

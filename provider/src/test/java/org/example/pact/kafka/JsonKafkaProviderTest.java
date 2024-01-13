@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Provider("jsonKafkaProviderApp")
 @Consumer("jsonKafkaConsumerApp")
-@PactFolder("target/pacts")
+@PactFolder("../consumer/target/pacts")
 class JsonKafkaProviderTest {
 
 	private static final String JSON_CONTENT_TYPE = "application/json";

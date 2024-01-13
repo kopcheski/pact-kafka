@@ -17,6 +17,8 @@ import io.confluent.kafka.schemaregistry.json.JsonSchemaUtils;
 import io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializer;
 import io.confluent.kafka.serializers.json.KafkaJsonSchemaDeserializerConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.pact.kafka.ConsumerDomainRecord;
+import org.example.pact.kafka.ProductionCode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 

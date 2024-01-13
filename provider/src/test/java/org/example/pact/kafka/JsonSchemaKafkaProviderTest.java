@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Provider("jsonSchemaKafkaProviderApp")
 @Consumer("jsonSchemaKafkaConsumerApp")
-@PactFolder("target/pacts")
+@PactFolder("../consumer/target/pacts")
 class JsonSchemaKafkaProviderTest {
 
 	private static final String SCHEMA_REGISTRY_JSON_CONTENT_TYPE = "application/vnd.schemaregistry.v1+json";
